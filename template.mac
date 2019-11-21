@@ -1,0 +1,52 @@
+/control/macroPath macro
+
+# verbosity
+/control/verbose 0
+/run/verbose 1
+/tracking/verbose 0
+/event/verbose 0
+
+/analysis/setOutputFileName anaout.root
+/analysis/setOutputTreeName CENNS
+/detector/gdmlfile     lar1ton_pmt_and_sipm/lar1ton_pmt_and_sipm.gdml
+/detector/setSDconfig  pmtsd:/cluster/tufts/wongjiradlab/twongj01/coherent/cenns10geant4/gdml/sdconfigs/pmt_hama_11410.json
+/detector/setSDconfig  sipmsd:/cluster/tufts/wongjiradlab/twongj01/coherent/cenns10geant4/gdml/sdconfigs/sipm_hama_mppc_s141520.json
+/detector/setSDvolume  pmtsd:volTopPMTVac
+/detector/setSDvolume  sipmsd:volPanelSiPMdet
+/detector/setVersion 3
+/detector/TPBEff 1.20
+/detector/PMTQE  0.212
+/detector/XeDoping 10.0
+/detector/TeflonTransmissionProb 0.1
+/detector/TeflonReflectProb 1.0
+
+/detector/TopReflectProb    0.55
+/detector/BottomReflectProb 0.55
+/detector/TPBAbsBot 0.36
+/detector/TPBAbsMid 0.83
+/detector/TPBAbsTop 0.96
+/detector/TPBBotPMT 0.24
+/detector/TPBTopPMT 0.12
+
+/physics/scint true
+/physics/ERYieldFactor 1.0
+/physics/NRYieldFactor 0.25
+/physics/ERF90 0.28
+/physics/NRF90 0.74
+
+#/generator/setNuFlavor nu_mu
+#/generator/setCosmic true
+#/generator/setXCosmic 5.0
+#/generator/setYCosmic 5.0
+#/generator/setZCosmic 100.0
+#/generator/setRadCosmic 40.0
+
+/run/initialize
+
+# run using json format
+/analysis/setOutputFileName JSONOUTFILE
+/generator/setGenerator json
+/generator/setJSONfile JSONINFILE
+/run/beamOn 1000
+exit
+
