@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#SBATCH --job-name=cenns750
-#SBATCH --output=cenns750_0.log
+#SBATCH --job-name=nc_cenns750
+#SBATCH --output=nc_cenns750_0.log
 #SBATCH --mem-per-cpu=4000
 #SBATCH --time=1-00:00:00
 #SBATCH --array=0
