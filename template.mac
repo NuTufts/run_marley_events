@@ -33,6 +33,7 @@
 /physics/NRYieldFactor 0.25
 /physics/ERF90 0.28
 /physics/NRF90 0.74
+/physics/scintReductionFactor 10.0
 
 #/generator/setNuFlavor nu_mu
 #/generator/setCosmic true

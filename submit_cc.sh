@@ -1,19 +1,20 @@
 #!/bin/bash
 
-#SBATCH --job-name=cenns750
-#SBATCH --output=cenns750_2.log
+#SBATCH --job-name=cc_cenns750
+#SBATCH --output=cc_cenns750_0.log
 #SBATCH --mem-per-cpu=4000
 #SBATCH --time=1-00:00:00
-#SBATCH --array=0,50,100
+#SBATCH --array=30
 
 CONTAINER=/cluster/tufts/wongjiradlab/twongj01/coherent/singularity-geant4-10.02.p03.simg
 
 WORKDIR=/cluster/tufts/wongjiradlab/twongj01/coherent/run_marley_events
 
-FILELIST=$WORKDIR/filelist.txt
-TEMPLATE=$WORKDIR/template.mac
+ENERGY=30
+TEMPLATE=$WORKDIR/cc_template.mac
 CENNSDIR=/cluster/tufts/wongjiradlab/twongj01/coherent/cenns10geant4
-OUTDIR=$WORKDIR/outdir
+OUTDIR=$WORKDIR/cc_outdir
 
 module load singularity
-singularity exec $CONTAINER bash -c "cd $WORKDIR && source run_marley_job.sh $FILELIST $TEMPLATE $CENNSDIR $WORKDIR $OUTDIR"
+mkdir -p $OUTDIR
+singularity exec $CONTAINER bash -c "cd $WORKDIR && source run_cc_marley_job.sh $ENERGY $TEMPLATE $CENNSDIR $WORKDIR $OUTDIR"

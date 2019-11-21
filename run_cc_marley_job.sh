@@ -1,6 +1,6 @@
 #!/bin/bash
 
-filelist=$1
+energy=$1
 template=$2
 cennsdir=$3
 workdir=$4
@@ -19,26 +19,26 @@ source setenv.sh
 cd $workdir
 
 # get inputfile from file list
-let lineno=${SLURM_ARRAY_TASK_ID}+1
-inputfile=`sed -n ${lineno}p $filelist`
+let ienergy=${SLURM_ARRAY_TASK_ID}
 
-echo "inputfile: $inputfile"
+inputfile=`printf $workdir/cc_configs/cc_marley_mono_Ev%02d.json ${ienergy}`
+echo "input marley config file: $inputfile"
 
 # jobdir
-jobdir=`printf ${workdir}/slurm_job%03d ${SLURM_ARRAY_TASK_ID}`
+jobdir=`printf ${workdir}/slurm_cc_job%03d ${SLURM_ARRAY_TASK_ID}`
 mkdir -p $jobdir
 cd $jobdir
 
 # output file
-outfile=`echo "$(basename ${inputfile})" | sed 's/nc\_out/nc\_marleyout/g' | sed 's/\.json/\.root/g'`
+outfile=`printf cc_marleyout_Ev%02d_00_gen.root $energy`
 echo "output file: ${outfile}"
 
 # make macro
 cp $template macro.mac
-sed -i 's|JSONINFILE|'"${inputfile}"'|g' macro.mac
+sed -i 's|MARLEYCONFIGFILE|'"${inputfile}"'|g' macro.mac
 sed -i 's/JSONOUTFILE/'"${outfile}"'/g'  macro.mac
 
-CENNS -m macro.mac > /dev/null
-#CENNS -m macro.mac # for debug
+#CENNS -m macro.mac > /dev/null
+CENNS -m macro.mac # for debug
 
 mv $outfile $outdir/

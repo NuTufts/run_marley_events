@@ -1,0 +1,41 @@
+// Use this example configuration file as a starting point for your own files.
+{
+  seed: 123456, // Random number seed (omit to use time since Unix epoch)
+
+  // Nuclear structure data files
+  structure: [ "extern/marley/structure/z019",
+               "extern/marley/structure/z018",
+               "extern/marley/structure/z017", ],
+
+  // Reaction matrix element files
+  reactions: [ "extern/marley/react/ve40ArCC_Bhattacharya2009.react" ],
+
+  // Neutrino source specification
+  source: {
+   type: "mono",
+   neutrino: "ve",
+   energy: 30
+  },
+
+  // Incident neutrino direction 3-vector
+  direction: { x: 1.0,
+               y: 0.0,
+               z: 0.0
+             },
+
+  // Generation Volume (in mm)
+  volume: { r: 368.3, z:419.0 },
+
+  // Logging configuration
+  log: [ { file: "stdout", level: "info" },
+         { file: "marley.log", level: "info", overwrite: true } ],
+
+  // Settings for marley command-line executable
+  executable_settings: {
+
+    events: 10, // The number of events to generate
+
+    // Event output configuration
+    output: [ { file: "events.ascii", format: "ascii", mode: "overwrite" } ],
+  },
+}
