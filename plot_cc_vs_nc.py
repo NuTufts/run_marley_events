@@ -24,8 +24,8 @@ def make_pmt_v_sipm( energy, outroot, cc_anafolder="cc_anaout", nc_anafolder="nc
     if ienergy in [10]:
         reduct_factor = 1.0
 
-    cchist = rt.TH2D("hpmt_v_sipm_cc_en%02d"%(ienergy),"CC-#nu_{e} @ true E_{#nu}=%d MeV;num PMT hits; num SiPM hits"%(ienergy),50,0,3e5,50,0,2000)
-    nchist = rt.TH2D("hpmt_v_sipm_nc_en%02d"%(ienergy),"NC-#nu @ true E_{#nu}=%d MeV;num PMT hits; num SiPM hits"%(ienergy),    50,0,3e5,50,0,2000)
+    cchist = rt.TH2D("hpmt_v_sipm_cc_en%02d"%(ienergy),"CC-#nu_{e} @ true E_{#nu}=%d MeV;num PMT hits; num SiPM hits"%(ienergy),50,0,3e5,50,0,2500)
+    nchist = rt.TH2D("hpmt_v_sipm_nc_en%02d"%(ienergy),"NC-#nu @ true E_{#nu}=%d MeV;num PMT hits; num SiPM hits"%(ienergy),    50,0,3e5,50,0,2500)
 
     cctree.Draw("(totals[1][0]*10+totals[1][1]):(totals[0][0]*10.0+totals[0][1])>>hpmt_v_sipm_cc_en%02d"%(ienergy))
     nctree.Draw("(totals[1][0]*%.2f+totals[1][1]):(totals[0][0]*%.2f+totals[0][1])>>hpmt_v_sipm_nc_en%02d"%(reduct_factor,reduct_factor,ienergy))
@@ -37,10 +37,10 @@ if __name__ == "__main__":
 
     out = rt.TFile("tempana.root","recreate")
 
-    energies = [5,15,20,30,35]
+    energies = [5,15,20,30,35,40]
 
-    ccombo = rt.TCanvas("call","call",1000,300*len(energies))
-    ccombo.Divide( 2, len(energies) )
+    ccombo = rt.TCanvas("call","call",1200,1200)
+    ccombo.Divide( 4, 4 )
 
     hists = []
 
@@ -53,10 +53,11 @@ if __name__ == "__main__":
 
         #c = rt.TCanvas("c","c",1200,500)
         #c.Divide(2,1)
-        ccombo.cd( 2*i + 1 )
+        ccombo.cd( 4*i/2 + 1 )
         cc.Draw("colz")
-        ccombo.cd( 2*i + 2 )
+        ccombo.cd( 4*i/2 + 2 )
         nc.Draw("colz")
+            
 
         ccombo.Update()
 
